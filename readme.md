@@ -447,7 +447,7 @@ console.log(store.getState());
 
 ## Instalando React-redux
 
-Ya tienes los conceptos básicos para hacer tus apliaciones con redux y en esté modulo lo que vamos a hacer es integrarlo a una apliación con React, pero ya tienes el conocimiento.
+Ya tienes los conceptos básicos para hacer tus apliaciones con redux y en esté modulo lo que vamos a hacer es integrarlo a una aplicación con React, pero ya tienes el conocimiento.
 
 Para integrar redux a una apliación con React necesitamos de una dependencia extra que se llamá [React-Redux](https://github.com/reduxjs/react-redux), ya que es una dependecia que hicieron los mismos desarrolladores que mantienen ReactJs.
 
@@ -462,3 +462,51 @@ Ahora ya podemos modificar nuestro proyecto, en el cual tenemos que:
 - quitar otros.
 
 Tenemos que hacer que Redux se adueñe de nuestra apliación que empiece a utilizar un Store más hemogeneo y luego añadirle más acciones para que realice las busquedas, etc.
+
+## Puliendo la estructura de datos 
+
+Algó que vamos a agradecer muchisímo al momento de estar trabajando con datos es que pues estén bien estructurados, para esto tenemos que hacer unos ligeros ajustes a nuestro api.json, estó lo vamos a agradecer cuando estemos haciendo algunas cosas con react en el futuro.
+
+1. Lo que vamos a hacer es que todos los ids que vengan en nuestro json que vienen como números volverlos textos
+2. Lo segundo que necesito es que todos los ids sean homogeneos y diferentes.
+
+## Agregando Store al proyecto de react.
+
+Ya instalamos la nueva dependencia en nuestro proyecto que se llamá react-redux, ya tenemos instalado redux, ya arreglamos nuestro modelo de datos del api, y ahora vamos a hacer los mismo que teníamos en nuestro proyecto vanilla.js pero ahora sí con react y lo vamos a poner dentro de nuestro proyecto, recordemos que en estries -> home.js tenemos donde arrancá nuestro proyecto.
+
+Así que acá es donde vamos a importar tal cual como hicimos en redux 
+``ìmport { createStore } from 'redux' ``
+
+Ahora tenemos que hacer nuestro store e igual como lo habiamos echo anterioremente.
+```js
+import data from '../api.json';
+const initialState = {
+    data: {
+        ...data
+    }
+}
+
+const store = createStore(
+    (state) => state,
+    initialState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
+
+```
+
+Ya hemos empezado la integración del proyecto Media con redux creando nuestro store pero nuestro store todavía no se ha conecado todavía no está incluido con nuestros datos de la aplicacíon, sigue siendo la UI y el store por un lado tenemos que mesclarlos ahora y para eso es está clase.
+Para eso tenemos que importar un height-order-componente que nos entrega react-redux que se llamá provider, esté nos va a hacer a la vez como un poquito de subscribe más o menos va a remplazarlo, ya no vamos a utilizar subscribe ya van a a saber porque y provider va a servir para ponerle los datos a la aplicación a esté store, y es un componente que vamos a poner como tag de react. Es un componente especial, no es un componente cualquiera que es un componente que le llamán height-order-component (componente de orden superior) 
+
+que tienen de interesante los componente de orden superior, van a heredarle cosas a los componente hijos, mira esto como si fuera un decorador, un mixing, los hight-order-component remplazan a los mixings para expenderle funciones o propiedades y en esté caso va extenderle propiedades, va a extenderle nuestro store así que el provider va a tener una propiedad que va a recibir, un key que se llamá store y ha esté le vamos a pasar nuestro store que ya hallamos creado y ahora tenemos que envolver nuestro home en ese provider, ahora a lo que le vamos a hacer render es a nuestro provider.
+
+Lo que va a pasar ahora en la aplicación esque se va a romper por completo porque no le estoy enviando datos
+
+Ahora tenemos que aprender a consumir los datos que tiene mi provider, el store que está almacenando el provider dentro de los componentes que necesitan ciertas cosas como por ejemplo las categorías que renderéan la categroría, el elemento de la playlist que rendereá su playlist pero ya concectados con redux.
+
+Estamos llendo paso a paso con nuestra aplicación creando primero el store luego, poniendo nuestro store a nuestra apliacación luego gracias al provider que es un heigth-order-component y ahora que ya tenemos esas 2 cosas ponemos empezar a consumir los datos, estó es lo que vamos a hacer ahora y es conectar datos en especifico dentro de nuestros componentes, entonces una de las hanbilidades interesantes de redux es que vamos a obtener los datos que necesita nuestro componente, esto siginifica que podemos enviarle un pedacito del state de mi estado general a cierto comoponente. 
+
+Nuestro componente proncipal de aplicación espera datos y no le estamos enviando ninguna dato, y espera que le lleguen por propiedades que le llegue está propiedad que son categories, y si no le llega está propiedad no puede renderear lo que tienen adentro  y eso es lo que vamos ha arreglar ahora.
+
+Para conectar los datos del store a un componente en especifico tenemos que utilizar otra habilidad de react-redux que también es parte de lo que hace subscribe, bien ahora tenego que concectar esos datos a mi componente y concect va a ser una función especial, una función que devuelve una función que al final es una función currificada, algunos conceptos raros de programación funcional. La cosa es que va a ser una función que va recibir un párametro donde vamos a ponder especificar que datos necesitamos y los datos que necesitamos los vamos a obtener del state. 
+
+Tengo que pasarle estos 2 datos a la función primero que componente y luego una fiu
