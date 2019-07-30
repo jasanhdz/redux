@@ -11,6 +11,7 @@ import Spinner from '../components/spinner.jsx';
 import Volume from '../components/volume.jsx';
 import FullScreen from '../components/fullscreen.jsx';
 import Navegador from '../utilities/navegator';
+import { connect } from 'react-redux';
 class VideoPlayer extends React.Component {
   state = {
     pause: true,
@@ -99,7 +100,7 @@ class VideoPlayer extends React.Component {
       <VideoPlayerLayout 
         setRef={this.setRef}
       >
-        <Title title={this.props.title}/>
+        <Title title={this.props.data.get('title')}/>
         <Controls>
           <PlayPause 
             handleClick={this.togglePlay}
@@ -130,7 +131,7 @@ class VideoPlayer extends React.Component {
           handleLoadedMetadata={this.handleLoadedMetadata}
           pause={this.state.pause}
           autoplay={this.props.autoplay}
-          src={this.props.src}
+          src={this.props.data.get('src')}
           handleTimeUpdated={this.handleTimeUpdated}
           handleSeeking={this.handleSeeking}
           handleSeeked={this.handleSeeked}
@@ -140,4 +141,8 @@ class VideoPlayer extends React.Component {
   }
 }
 
-export default VideoPlayer;
+function mapStateToProps(state, props) {
+  return {data: state.get('data').get('entities').get('media').get(props.id)};
+}
+
+export default connect(mapStateToProps)(VideoPlayer);

@@ -7,21 +7,26 @@ import Modal from '../../widgets/components/modal.jsx';
 import HandleError from '../../error/containers/handle-error.jsx';
 import VideoPlayer from '../../player/containers/video-player.jsx';
 import { connect } from 'react-redux';
+import { List as list } from 'immutable';
+import * as actions from '../../actions/index';
+import { bindActionCreators } from 'redux';
 
 class Home extends React.Component {
-  state = {
-    modalVisible: false,
-  }
-  handleOpenModal = media => {
-    this.setState({
-      modalVisible: true,
-      media: media
-    })
+  // state = {
+  //   modalVisible: false,
+  // }
+  handleOpenModal = mediaId => {
+    // this.setState({
+    //   modalVisible: true,
+    //   media: media
+    // })
+    this.props.actions.openModal(mediaId)
   }
   handleCloseModal = (event) => {
-    this.setState({
-      modalVisible: false,
-    })
+    // this.setState({
+    //   modalVisible: false,
+    // })
+    this.props.actions.closeModal()
   }
   render() {
     return (
@@ -34,13 +39,14 @@ class Home extends React.Component {
             search={this.props.search}
           />
         {
-          this.state.modalVisible &&
+          this.props.modal.get('visibility') &&
           <ModalContainer>
             <Modal handleClick={this.handleCloseModal}>
               <VideoPlayer 
                 autoplay
-                src={this.state.media.src}
-                title={this.state.media.title}
+                id={this.props.modal.get('mediaId')}
+                // src={this.state.media.src}
+                // title={this.state.media.title}
               />
             </Modal>
           </ModalContainer>
@@ -52,13 +58,34 @@ class Home extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  const categories = state.data.categories.map(categoryId => {
-    return state.data.entities.category[categoryId];
+  const categories = state.get('data').get('categories').map(categoryId => {
+    return state.get('data').get('entities').get('category').get(categoryId);
   })
+  let searchResults = list();
+  const search = state.get('data').get('search');
+  if(search) {
+    const mediaList = state.get('data').get('entities').get('media');
+    searchResults = mediaList.filter((item) => {
+      if (
+        item.get('author').toLowerCase().includes(search.toLowerCase())
+        ||
+        item.get('title').toLowerCase().includes(search.toLowerCase())
+      )
+      return true;
+    }).toList() 
+  }
   return {
     categories: categories,
-    search: state.search
+    search: searchResults,
+    modal: state.get('modal')
   }
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+  return {
+    // actions: bindActionCreators(actiones, dispatch)
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

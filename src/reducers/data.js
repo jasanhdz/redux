@@ -1,14 +1,15 @@
-function reducer(state, action) {
+import normalizedData from '../schemas/index';
+import { fromJS } from 'immutable';
+const initialState = fromJS({
+  entities: normalizedData.entities,
+  categories: normalizedData.result.categories,
+  search: ''
+})
+
+function reducer(state = initialState, action) {
   switch(action.type) {
-    case 'SEARCH_VIDEO':
-      const list = state.data.categories[2].playlist;
-      const results = list.filter((item) => {
-        return item.author.includes(action.payload.query)
-      })
-      return {
-        ...state, 
-        search: results
-      }
+    case 'SEARCH_ETITIES':
+      return state.set('search', action.payload.query);
     default: 
       return state
   }

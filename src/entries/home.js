@@ -5,23 +5,29 @@ import Home from '../pages/containers/Home.jsx';
 import data from '../api.json';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from '../reducers/data';
+// import reducer from '../reducers/data';
+import reducer from '../reducers/index';
 import normalizedData from '../schemas/index';
+import { Map as map } from 'immutable';
 
 console.log(normalizedData)
 
-const initialState = {
-  data: {
-    // ...data
-    entities: normalizedData.entities,
-    categories: normalizedData.result.categories
-  },
-  search: []
-}
+// const initialState = {
+//   data: {
+//     // ...data
+//     entities: normalizedData.entities,
+//     categories: normalizedData.result.categories,
+//     search: []
+//   },
+//   modal: {
+//     visibility: false,
+//     mediaId: null
+//   }
+// }
 
 const store = createStore(
   reducer,
-  initialState,
+  map(),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

@@ -7,7 +7,7 @@ class Media extends React.Component {
     author: 'Leonidas Esteban'
   }
   handleClick = (event) => {
-    this.props.openModal(this.props)
+    this.props.openModal(this.props.id)
   }
   render() {
     return(
