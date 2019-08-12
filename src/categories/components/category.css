@@ -16,3 +16,9 @@
   margin: 0;
   font-size: 14px;
 }
+
+.Spinner2 {
+  display: flex;
+  width: 445px;
+  margin-bottom: 30px;
+}

@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = (env) => {
   let plugins = [
     new ExtractTextPlugin("css/[name][hash].css"),
+    
   ]
   if (env.NODE_ENV === 'production') {
     plugins.push(
@@ -38,7 +39,11 @@ module.exports = (env) => {
           loader: 'babel-loader',
           options: {
             presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: ["@babel/plugin-proposal-object-rest-spread", "@babel/plugin-proposal-class-properties"]
+            plugins: [
+              "@babel/plugin-proposal-object-rest-spread", 
+              "@babel/plugin-proposal-class-properties",
+              "emotion"
+            ]
           }
         },
         // usar para produccion.

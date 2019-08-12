@@ -2,10 +2,12 @@
 import { combineReducers } from 'redux-immutable';
 import data from './data';
 import modal from './modal';
+import isLoading from './is-loading';
 
 const rootReducer = combineReducers({
   data,
-  modal
+  modal,
+  isLoading
 });
 
 export default rootReducer;

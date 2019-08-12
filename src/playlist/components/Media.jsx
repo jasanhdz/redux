@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import './media.css';
 
 class Media extends React.Component {
-  state = {
-    author: 'Leonidas Esteban'
-  }
   handleClick = (event) => {
     this.props.openModal(this.props.id)
   }
@@ -20,9 +17,9 @@ class Media extends React.Component {
             height={160}
             className="Media-image"
           />
-          <h3 className="Media-title">{this.props.title}</h3>
-          <p className="Media-author">{this.props.author}</p>
         </div>
+        <h3 className="Media-title">{this.props.title}</h3>
+        <p className="Media-author">{this.props.author}</p>
       </div>
     )
   }
