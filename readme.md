@@ -1,6 +1,47 @@
 # Redux
 
-¿Qué es Redux?
+## Tabla de Contenido
+- [¿Qué es Redux?](#qué-es-redux)
+  - [Historia](#historia)
+  - [Motivación](#motivación)
+- [Bases de Redux](#bases-de-redux)
+- [Principios de Redux](#principios-de-redux)
+- [Quizá tu apliación no necesite Redux](#quizá-tu-apliación-no-necesite-redux)
+- [Preparando Entorno de trabajo para el Curso](#preparando-entorno-de-trabajo-para-el-curso)
+- [Haciendo la configuración inicial de Redux](#haciendo-la-configuración-inicial-de-redux)
+- [Entendiendo y agregando un Store](#entendiendo-y-agregando-un-store)
+- [Imprimiendo Datos del Estado](#imprimiendo-datos-del-estado)
+- [Definiendo acciones a manejar](#definiendo-acciones-a-manejar)
+- [Actualizando el Store con Reducers](#actualizando-el-store-con-reducers)
+- [¿Qué es una función pura?](#qué-es-una-función-pura)
+- [Actualizando la aplicación en cada cambio con Subscribe](#actualizando-la-aplicación-en-cada-cambio-con-subscribe)
+- [Instalando React-redux](#instalando-react-redux)
+- [Puliendo la estructura de datos](#puliendo-la-estructura-de-datos)
+- [Agregando Store al proyecto de react](#agregando-store-al-proyecto-de-react)
+- [Integrando el Store con Provider](#integrando-el-store-con-provider)
+- [Conectando datos a los componentes](#conectando-datos-a-los-componentes)
+- [Agregando un Reducer para manejar los datos](#agregando-un-reducer-para-manejar-los-datos)
+- [Manejando acción para búsquedad de videos](#manejando-acción-para-búsquedad-de-videos)
+- [Filtrando los datos de búsquedad](#filtrando-los-datos-de-búsquedad)
+- [Añadiendo los datos filtrados](#añadiendo-los-datos-filtrados) 
+- [Conceptos Avanzados de Redux](#conceptos-avanzados-de-redux)
+- [Normalización de Datos](#normalización-de-datos)
+- [Añadiendo datos normalizados al store](#añadiendo-datos-normalizados-al-store)
+- [Usando datos normalizados en las playlist](#usando-datos-normalizados-en-las-playlist)
+- [Añadiendo Múltiples Reducers](#añadiendo-múltiples-reducers)
+- [Usando datos inmutables en el proyecto](#usando-datos-inmutables-en-el-proyecto)
+- [Actualizando un estado inmutable](#actualizando-un-estado-inmutable)
+- [Añadiendo las acciones y funcionalidad modal](#añadiendo-las-acciones-y-funcionalidad-modal)
+ - [Creadores de Acciones](#creadores-de-acciones)
+ - [Enlazando creadores de acciones](#enlazando-creadores-de-acciones)
+ - [Action Types](#action-types)
+ - [Middlewares](#middlewares)
+ - [Añadiendo múltiples Middlewares](#añadiendo-múltiples-middlewares)
+ - [Acciones asíncronas](#acciones-asíncronas)
+ - [Estado de carga](#estado-de-carga)
+
+
+## ¿Qué es Redux?
 
 Redux is a predictable state container for JavaScript apps or
 _Redux es un contenedor de estado predecible para aplicaciones JavaScript._
@@ -9,6 +50,9 @@ Lo que quiere decir es que nuestro estado estaría envolviendo a la aplicación 
 
 Como ejemplo: va a ser un único lugar para saber si un modal está desplegado o no está desplegado, si mi aplicación tiene ciertos datos, si mi apliación va ha actualizar algunos datos, seguro mi store lo va a saber y lo va ha tener en un solo lugar. Esto es muy interesante porque es un solo centro de la verdad.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ### Historia
 
@@ -21,6 +65,10 @@ Redux es una forma sencilla de manipular los datos de una forma separada de la i
 Luego de un Tiempo Adan es contratado para ser parte del equipo core de React y seguir haciendo 
 que la tecnología que nos encanta para construir interfaces dinámicas avance.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ### Motivación
 
 Hay más cosas que estaba resolviendo Adan con Redux ya que no solo nos va a servir para el hot-mode-replacement pero hay más cosas que estaba resolviendo con Redux, nos va a servir más cosas interesantes.
@@ -30,6 +78,10 @@ Hay más cosas que estaba resolviendo Adan con Redux ya que no solo nos va a ser
 Simplemente porque el Fronted es muy complejo.
 
 Ejemplos: saber si el modal está abierto o cerrado, si la aplicación tiene ciertos datos, si la apliación quiere actualizar algunos datos, si la apliación quiere pedir datos a una API, si tenemos que manejar esos callbacks, son como 4 cosas que naturamente hacemos en apliaciones fronted pero pueden haber muchos más métodos dentro del DOM que invoquen a traer nuevos datos, podemos crear nuevos estados de acuerdo ha acciones del usuario, como algunos clicks o pasar el mouse, o mostrar alguna animación, el frontend es muy complicado por todas las necesidades que tiene que resolver en ese tiempo, también era otra de las motivaciones para que React sea una buena dentro de ese stack, porque las apliaciones son cada día más dinámicas por eso es que Redux existe.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Bases de Redux
 
@@ -62,6 +114,11 @@ Esté es un ciclo que se cumple siempre. Y esto es una de las bases de porque Re
 <div aling="center">
 <img src="redux-proces.jpg">
 </div>
+<br>
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Principios de Redux
 
@@ -76,6 +133,10 @@ Como el Store lo sabe todo nosotros podemos consultarle, store ¿como estoy? y e
 3. Los cambios se realizan con funciones Puras - Changes are made whith pure functions:
 Esto hace una referencia directa dentro a los reducers que los reducers son simplemente funciones que tiene que ser funciones puras para realizar nuestros cambios es decir que simplemente vamos a hacer una función que no sea muy compleja que sea fácil de entender y fácil de leer, estó es una función pura.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Quizá tu apliación no necesite Redux
 
 Para alguien con experiencia que esta tomando esté curso tendrá cierto sentido utilizar redux, pero no tiene sentido en todas las apliaciones que estas escribiendo seguramente si vas a hacer algo en tu día a día no todo va a ser totalmente complejo para que necesite redux, no todo va a tener un llamado a una API, no todo va a tener código asincrono por todas partes no todo va a ser muy interactivo, entonces no siempre tienes que decir: voy a utilizar react, entonces tengo que utilizar redux. 
@@ -85,6 +146,10 @@ No siempre tienes que meter un Stack completamente sofisticado o complejo a una 
 Para finalizar Redux Ama a React <3: Fueron echos para trabajer juntos aunque puden funcionar con vanilla.js o con cualquier otro framework o librería de javacript. 
 
 En esté curso utilizaremos Redux con vanilla.js y con react, crearemos 2 proyectos diferentes implementando Redux.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Preparando Entorno de trabajo para el Curso
 
@@ -108,7 +173,11 @@ Ahora ya tenemos instalo redux en react y ya podremos ocuparlo en nuestro proyec
 
 Las devTools de redux para navegar en el tiempo las apliaciones, también podemos ver el estado de la apliación y debuggear de una manera más sencilla
 
-## Haciendo la cnfiguración inicial de Redux 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Haciendo la configuración inicial de Redux 
 
 Nuestro proyecto sencillo gracias a la mágia de webpack, va a ser un nuevo entrypoint que vamos a configurar en nuestro webpack.config y webpack.dev.config.
 ```js
@@ -139,6 +208,10 @@ const handleSubmit = event => {
 }
 $form.addEventListener('submit', handleSubmit);
 ```
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Entendiendo y agregando un Store 
 
@@ -213,6 +286,10 @@ Con estó tendremos nuestro Store listo, si vamos a nuestro navegador en las dev
 
 Las herramientas de redux aparte de servirme para debugear y saber que tengo en mi estado, también me van a servir para moverme en el tiempo, poder ver que está y cambiar los datos del store. Recuerda utilizar esto solo modo de desarrollo 
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Imprimiendo Datos del Estado
 
 Ya creamos nuestro centro de la verdad, nuestro Store y nuestro Store tiene un estado, y ese estado contiene esa lista o array con nuestra lista de canciones, necesitamos obtener los datos del estado, del store para imprimirlos en nuestra aplicación y para eso está está clase.
@@ -241,6 +318,10 @@ playlist.forEach((item) => {
 })
 console.log(store.getState());
 ```
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Definiendo acciones a manejar
 
@@ -287,6 +368,10 @@ Hay acciones que no necesitan datos opcionales como por ejemplo: mostrar el moda
 
 Algo que tambíen vamos a agradecer de enviar datos adicionales y no tener que volver a manipular nuestro reducer es que mejor le enviemos un objeto, porque por ahora enviamos el title, pero que tal si el formulario también nos da el artista, el author etc..
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Actualizando el Store con Reducers
 
 Ya tenemos creado un Store que a su vez le hemos puesto un estado inicial y ya estamos enviandole acciones para querer actualizarlo pero no lo estamos actualizando y nos falta el 3er eje de nuestro ciclo de cosas que hace Redux y son los Reducers.
@@ -304,6 +389,10 @@ Ya tenemos creado un Store que a su vez le hemos puesto un estado inicial y ya e
     - Los reducer deberían ser tan sencillos como podamos para que haga tareas rutinarias como agregar, poner, quitar, etc. Nada tan sofisticado, ningún calculo tan complicado y en esté caso una tarea con efecto secundario como una llamadá a un API
     - Porque las llamadas a un api pueden traerme resultados diferentes por ejemplo si quisiera llamar a los ultimos post del blog, dentro de un reducer, técnicamente podriamos hacerlo, mando esa llamada a la api con fetch o con ajax, me devuelve el post del blog y puede que el último post sea 'como funciona react16', puede que cuando yo vuelva a llamar a la misma acción y pase por el mismop reducer y llame al último post, me devuelva otra cosas que no sea el string anterior. Aquí estaríamos incumpliendo lo que hacen las funciones puras.
 3. Llamar a funciones no puras como Date.now() o Math.random().
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## ¿Qué es una función  pura?
 
@@ -339,6 +428,10 @@ const reducer = function(state, action) {
    }
 }
 ```
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Actualizando la aplicación en cada cambio con Subscribe
 
@@ -445,6 +538,10 @@ store.subscribe(handleChange)
 console.log(store.getState());
 ```
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Instalando React-redux
 
 Ya tienes los conceptos básicos para hacer tus apliaciones con redux y en esté modulo lo que vamos a hacer es integrarlo a una aplicación con React, pero ya tienes el conocimiento.
@@ -463,12 +560,20 @@ Ahora ya podemos modificar nuestro proyecto, en el cual tenemos que:
 
 Tenemos que hacer que Redux se adueñe de nuestra apliación que empiece a utilizar un Store más hemogeneo y luego añadirle más acciones para que realice las busquedas, etc.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Puliendo la estructura de datos 
 
 Algó que vamos a agradecer muchisímo al momento de estar trabajando con datos es que pues estén bien estructurados, para esto tenemos que hacer unos ligeros ajustes a nuestro api.json, estó lo vamos a agradecer cuando estemos haciendo algunas cosas con react en el futuro.
 
 1. Lo que vamos a hacer es que todos los ids que vengan en nuestro json que vienen como números volverlos textos
 2. Lo segundo que necesito es que todos los ids sean homogeneos y diferentes.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Agregando Store al proyecto de react.
 
@@ -494,6 +599,10 @@ const store = createStore(
 
 ```
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Integrando el Store con Provider
 
 Ya hemos empezado la integración del proyecto Media con redux creando nuestro store pero nuestro store todavía no se ha conecado todavía no está incluido con nuestros datos de la aplicacíon, sigue siendo la UI y el store por un lado tenemos que mesclarlos ahora y para eso es está clase.
@@ -504,6 +613,10 @@ que tienen de interesante los componente de orden superior, van a heredarle cosa
 Lo que va a pasar ahora en la aplicación esque se va a romper por completo porque no le estoy enviando datos
 
 Ahora tenemos que aprender a consumir los datos que tiene mi provider, el store que está almacenando el provider dentro de los componentes que necesitan ciertas cosas como por ejemplo las categorías que renderéan la categroría, el elemento de la playlist que rendereá su playlist pero ya concectados con redux.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Conectando datos a los componentes.
 
@@ -569,6 +682,10 @@ Gracias a la función mapStateToProps le estamos enviando nuevas propiedades a n
 
 Ya hemos integrado el store dentro de redux, ponerlo en el provider y servirnos los datos que necesita cada componente según sea la necesidad, en esté caso como tenemos todo metido dentro del api, y gracias a categories todo va bajando de los demás componentes, no nos hace falta más que cambiar la propiedad que vamos a recibir.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Agregando un Reducer para manejar los datos.
 
 Ya tenemos completamente resuelta nuestra carga de la página y como ya hemos visto en las clases ha sido muy sencillo y así como ha sido sencillo hacer la primera cargá, vamos a empezar a hacer la lógica de actualización de datos para acompletar nuestro ciclo de redux, para eso tenemos que hacer acciones y reducers, así que vamos a empezar con los reducers. 
@@ -606,6 +723,10 @@ export default data;
 Tenemos que importar esté reducer que acabamos de crear y consumirlo dentro de nuestro store, y si todo está bien nuestra aplicación debería de seguir funcionando.
 
 Ya creamos nuestro primer reducer ahora nuestro reducer tienen que manejar los datos y actualizar el estado y como lo hace? R= Con las Acciones , en la siguiente sesión añadiremos nuestras acciónes para manejarlas en el reducer y luego actualizamos el estado para que se repinte la UI.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Manejando acción para búsquedad de videos.
 
@@ -677,7 +798,11 @@ Para el siguiente acto es manejar estó dentro del reducer, donde estamos recibi
 
 OJO: Debemos recordar desde el curso de React cuando estuvimos hablando de "DUMP components" y "SMART components" era que soló los componentes inteligantes o contenedores, los componentes que tienen su estado, propiamente dicho y lo manejan son los que se conectan al store y non hemos roto está regla vemos que en Home estó es un SMART component, y el Search también es un SMART component, los destinguimos porque estan adentro de nuestros containers, también recuerden que hay más formas de llamarles a los SMART componentes como Containers.
 
-## Filtrando los datos de búsqueda 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Filtrando los datos de búsquedad 
 
 Ya estamos enviando nuestras busquedas a nuestro reducer y nuestro reducer tiene que actualizar el estado, esto es lo que no estamos haciendo, así que procedamos a hacerlo, aquí me va a llegar un action.type de 'SEARCH_VIDEO', estamos entrando a ese case y aquí podriamos hacer una busquedad filtrando los elementos, lo que sea es que tengo que devolver un nuevo estado, esté nuevo estado es un nuevo objeto porque así lo tenemos definido. Lo que vamos a retornar es el mismo objeto, pero le vamos a añadir algó adicional y le voy a añadir un nuevo key a mi objeto, así que mi estado no solo va a tener data, si no que tendrá otras cositas, como la busquedad, así que dentro de data podremos un nuevo estado inicial que será una busquedad, y como estado inicial va a ser una lista, un array vació porque ahora si es que vamos ha añadirle algó a esa búsqueda gracias a lo que vamos a hacer dentro del reducer.
 
@@ -704,6 +829,10 @@ function data(state, action) {
 ```
 
 Una vez hecho esto retornaremos la nueva lista de elementos buscados cada vez que busquemos valga la redundancia. Ahora el siguiente pasó será pintarlos en la UI.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Añadiendo los datos filtrados 
 
@@ -806,11 +935,19 @@ function data(state, action) {
 } 
 ```
 
-# 5. Conceptos Avanzados de Redux
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Conceptos Avanzados de Redux
 
 Bienvenido a la parte avanzada de Redux donde vamos a resolver problemas más sofisticados del frontend y vamos a ir viendo cuando nos sirven ciertas cosas que vamos a utilizar, cuando no, no necesariamente tienes que utilizar todo lo que vamos a ver en el curso en una sola aplicación, puedes utilizar un pedacito, quizás solo la parte elemental, la parte básica que ya hemos visto, quizás algunas cosas de la parte avanzada, pero ya vaz ir entendiendo y mezclando y viendo cual es el caso correcto de uso para tu aplicación en nuestro caso vamos a meterle de todo a nuestra aplicación platzi-video de manera educativa.
 
-## Normailzando Datos
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Normalización de Datos
 
 Lo primero que vamos a hacer es normalizar datos pero qué es normalizar datos, es algó complicado de explicar con palabras pero muy sencillo de explicarte con un ejemplo.
 
@@ -894,6 +1031,10 @@ export default normalizedData;
 
 Para los datos normalizados tengo que pasarle primero los datos de origen, despues le tengo que pasar un schema y para que me entregué los datos normalizados en conjunto, un objeto que adentro tenga media y tenga categories, vamos a pasarle un schema que hagá todo eso y lo valla heredando, vamos a ir viendo como se hace y para eso le voy pasar el último esquema que hemos creado aquí. Estos datos normalizados son los que vamos a exportar al final del archivo 
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Añadiendo datos normalizados al store
 
 La clase anterior aparte de ser larga fue como todo lo que creías no era realidad ha cambiado ha partir de esa clase porque normalizar datos cambia la vida.
@@ -937,6 +1078,10 @@ function mapStateToProps(state, props) {
   search: state.search
 }
 ```
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Usando datos normalizados en las playlist
 
@@ -995,7 +1140,12 @@ function Playlist() {
 
 export default Playlist
 ```
-## Añadiendo Multiples Reducers
+<br>
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Añadiendo Múltiples Reducers
 
 Una aplicación sofisticada, compleja va a manejar múltiples responsabilidades en el lado del frontend que es el lado en el que estamos trabajando, y estás responsabilidades las podemos dividir en múltiples reducers para que cada reducer maneje el tipo de dato que necesita, manejar, maneobrar, actualizar, cambiar y que cada quien hagá lo suyo, lo primero que vamos a hacer en nuestra aplicación que no es tan compleja pero pues añadamosle estó para que estés totalmente preparado, para que cuando quieras enfrentarte a está aplicación que maneja en un singlepage 10 página completas y cada página es una aplicación en fin, hagamos multiples reducers, pero como sabemos que vamos a tener multiples reducers, cuando nostros tenemos un solo reducer, va a manejar todo nuestro estado initial, es decir va a poder actualizar data, va a poder utilizar search, también tomaría como por ejemplo el modal, actualizaría completamente todo, tendría el alcance completo, pero cuando queremos añadir múltiples reducer lo vamos a poder diversificar y poder agrupar y cada key que tendríamos en nuestro estado initial respondería a un reducer y eso es lo que vamos a hacer, cada key que tengamos en ese estado initial se va a convertir en reducer apartir de ahora y acá los vamos a combinar para solo exportar un solo reducer que es el que va aceptar como párametro nuestro createStore.
 
@@ -1134,6 +1284,10 @@ const rootReducer = combineReducers({
 })
 ```
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Usando datos inmutables en el proyecto
 
 Otra cosa que vas a ver en aplicaciones más sofisticadas de redux es que todo su estado va a ser inmutable, actualmente nuestro estado también lo manejamos de una forma también inmutable, porque estamos siguiendo buenas prácticas para asignar y no mutar nuestro estado, es decir no cambiarlo, sino generar un nuevo estado con la copia del anterior y cambiandole lo que le tengamos que cambiar partiendo de una acción gracias a los reducers, pero somo humanos y podemos equivocarnos, así que para eso existe redux-immutable y immutable.js que nos va ha obligar a tener un estado inmutable, no va a ver forma de mutarlo. Usaremos esto como una buena práctica y no tengamos problemas de mutación y aparte immutable.js nos va a proveer de métodos para hacer unas busquedas y hacer nuevos estados de nuestro estado previo pero sin mutar el estado original sino haciendo copias del estado.
@@ -1260,6 +1414,10 @@ export default connect(mapStateToProps)(MediaContainer);
 
 Esto puede parecer impractico pero creeme que lo vas a agradecer con el pasar del tiempo, con la experiencia, aparte de que también trae muchas mejoras de performace.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Actualizando un estado inmutable 
 
 El reducer ya no va a funcionar igual como lo teníamos, ahora tenemos que arreglarlo para el caso de la búsquedad, donde estamos entregando en search una lista de elementos, vamos a cambiar estó y lo vamos a hacer, vamos a cambiar estó y lo vamos a hacer al estilo de immutable.js la forma de entregar esté nuevo estado, para esto vamos a delegarle todo el filtro que hemos hecho por acá a nuestro mapStateToProps que necesite obtener los datos de búsquedad y luego voy a retornar un nuevo estado con un key más secillo pero con immutable, ya no vamos a utilizar la modificación de estado que teníamos antes, solo vamos a settear la propiedad que necesitamos en la copia OJO, porque immutable entregá copias para evitar la modificación del estado. Ya que tenemos un state inmutable, cuando utilicemos cualquier método de immutable como: {**get, set, merge, etc**.} Lo que va hacer el método de immutable, ya que es un mapa, nos va a regresar un nuevo mapa inmutable, entonces usando el método para añadirle nuevas propiedades a immutable quedaría así.
@@ -1308,6 +1466,10 @@ function mapStateToProps() {
 ```
 
 Ahora acabamos de recuperar esté feature que teniamos y lo hemos hecho con immutableJS hemos delegado todas estás funciones de calculos y obtener datos a nuestro mapStateToProps gracias a immutableJS estó tiene un gran rendimiento y no tenemos re-renders raros.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Añadiendo las acciones y funcionalidad modal
 
@@ -1579,6 +1741,10 @@ class Home extends React.Component {
 // ....
 ```
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Creadores de Acciones
 
 Cada vez que usamos reducers podemos caer en escribir mal el tipo de Acción y esto rompe la aplicación, podemos evitar equivocarnos en escribir bien el nombre de la acción, esté es un concepto que introduce redux, que le llamá creadores de acciones, que básicamente es empaquetar mi acción dentro de una función que reciba los párametros de esa acción, esto sirve para no tipear todo el tiempo el nombre de la acción. 
@@ -1654,6 +1820,10 @@ class SearchContainer extends React.Component {
 }
 ```
 Gracias a los creadores de acciones, ya no vamos a tener que repetir todo el esquema, todo el objeto plano de Javascript y recordar como se llamán estas acciones, pues simplemente buscar las funciones y pasarle los párametros correctos.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Enlazando creadores de acciones 
 
@@ -1755,6 +1925,10 @@ export default connect(null, mapDispatchToProps)(SearchContainer);
 
 Nos hemos ahorrado un par de letras dentro de nuestras acciones y estó ya queda un poquitín más legible y estamos enlazando las acciones, aparte hemos aprendido que tenemos que tenemos un segundo método del connect que es el mapDispatchToProps y acá tenemos el dispatch del store.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Action Types
 
 Nos encontramos escribiendo una aplicación con todos los jueguetes, asi que utilicemoslos. Y lo que queremos evitar en está clase es que tengamos que repetir los textos manuales de nuestros strings constantes, que tenemos en los strings acciones y en los reducers, por una sola variable algó parecido como los hicimos con los actionsCreators y para eso tenemos que tener en un solo lugar nuestras acciones, nuestros strings de acciones, en este ejemplo estará en: 'src/action-types/index.js' desde acá vamos a tener todas nuestras acciones, esté archivo quedaría de la siguiente manera.
@@ -1818,6 +1992,10 @@ export default reducer;
 
 Estás son desiciones son desiciones que uno debería haber tomado al inicio del proyecto, pero como te lo he explicado paso a paso, toca remplazarlos sobre la marcha. Estó púede ser obsesivo de alguna manera pero lo vamos a agredecer a largo plazo y en aplicaciones muy grandes siempre que tienen estás clases de acciones bien definidas y separadas para hacer una aplicación solida.
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Middlewares
 
 Ya dominas muy bien todo el stack que tiene que ver con react con redux y hacerlo también de una manera mucho más avanzada pero hay un punto que hemos estado utilizando desde el principio y lo hemos hecho muy a la ligera que es la parte de los enhancer que hemos estado utilizando como tercer párametro de nuestro createStore y **un enhancer es otra manera de decirle a un middleware**.
@@ -1853,6 +2031,10 @@ Yo veo los Middlewares como programaciones muy puntuales que queremos que se eje
 Conceptualmente para que esto funcione, los middleware deberían recibir por parámetro no sólo valores que normalmente una función necesita, sino que también debería recibir la siguiente función a ser ejecutada, para que al final de cuentas, se la invoque, como una suerte de pasamanos entre un grupo de personas con tareas diferentes.
 
 A veces lo que me confunde es eso de recibir funciones como parámetros, o retornar funciones en vez de valores, o bien guardar una función en una variable… Pero a medida que eso me va quedando más claro, voy abstrayendo más todo la potencia de Redux y de Javascript.
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Añadiendo múltiples Middlewares
 
@@ -1955,6 +2137,10 @@ const store = createStore(
 )
 ```
 
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ## Acciones asíncronas
 
 Nuestro proyecto ya ha estado resolviendo multiples de las necesidades, pero todas estás necesidades se ejecutan de una manera sincrona, **¿Qué quiere decir?** que se ejecutan en secuencia, no requieren de un tiempo n para que se ejecuten o se vallan a mandar, en palabras más sencillas, en ningun momento mi aplicación ha estado haciendo algún llamado **HTTP-Request** en alguna acción o antes de la acción en nigun momento hemos puesto un *setTimeout* que también sería otra función asincrona que tenemos del *API* de *JavaScript*, nada que cambie nuestro flujo por eso es que todo ha sido muy sencillo, pero seguramente hay algó que tu vallas a querer hacer cuando vallas a interactuar con aplicaciones que tengan un API complejo que es hacer muchas acciones asincronas, y hay 2 formas de hacerlo, 1 es utilizando la función fancy de Redux.
@@ -2050,6 +2236,10 @@ export async function searchAsyncEntities(query) {
 ```
 
 Entonces estamos retornando una función para recapitular que recibe el dispatch en el cúal estoy haciendo mi flujo asincrono, mi 'side effects' que sería un llamado a una API que es el caso más común para tener funciones asincronas, y cuando el flujo asincrono se termine y obtenga el callback, ejecutó otra acción, pero está vez será una acción normal como *searchEntities*, para que el ejercico funcione vamos a cambiar la acción de busquedad por **searchAsyncEntities**
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
 
 ## Estado de carga
 
