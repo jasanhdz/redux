@@ -1,46 +1,41 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
-module.exports = (env) => {
-  let plugins = [
-    new ExtractTextPlugin("css/[name][hash].css"),
-    
-  ]
-  if (env.NODE_ENV === 'production') {
-    plugins.push(
-      new CleanWebpackPlugin(['dist'], {root: __dirname})
-    )
+module.exports = env => {
+  let plugins = [new ExtractTextPlugin("css/[name][hash].css")];
+  if (env.NODE_ENV === "production") {
+    plugins.push(new CleanWebpackPlugin(["dist"], { root: __dirname }));
   }
 
   return {
-    mode: 'production',
+    mode: "production",
     entry: {
-      'home': ['babel-polyfill', path.resolve(__dirname, 'src/entries/home.js')],
-      'redux': ['babel-polyfill', path.resolve(__dirname, 'src/entries/redux.js')],
+      app: ["babel-polyfill", path.resolve(__dirname, "src/entries/app.js")]
+      // 'redux': ['babel-polyfill', path.resolve(__dirname, 'src/entries/redux.js')],
     },
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'js/[name].js',
-      publicPath: path.resolve(__dirname, 'dist')+'/',
-      chunkFilename: 'js/[id].[chunkhash].js',
+      path: path.resolve(__dirname, "dist"),
+      filename: "js/[name].js",
+      publicPath: path.resolve(__dirname, "dist") + "/",
+      chunkFilename: "js/[id].[chunkhash].js"
     },
     devServer: {
       port: 9000,
-      publicPath: path.resolve(__dirname, '/'),
-      contentBase: path.join(__dirname, '/dist/'),
-      open: true,
+      publicPath: path.resolve(__dirname, "/"),
+      contentBase: path.join(__dirname, "/dist/"),
+      open: true
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
           exclude: /(node_modules|bower_components)/,
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env", "@babel/preset-react"],
             plugins: [
-              "@babel/plugin-proposal-object-rest-spread", 
+              "@babel/plugin-proposal-object-rest-spread",
               "@babel/plugin-proposal-class-properties",
               "emotion"
             ]
@@ -54,7 +49,7 @@ module.exports = (env) => {
             fallback: "style-loader",
             use: [
               {
-                loader: "css-loader",
+                loader: "css-loader"
                 // options: {
                 //   minimize: true,
                 //   modules: true
@@ -67,16 +62,15 @@ module.exports = (env) => {
           test: /\.(jpg|png|gif|svg)$/,
           exclude: /(node_modules|bower_components)/,
           use: {
-            loader: 'url-loader',
+            loader: "url-loader",
             options: {
               limit: 10000,
-              name: 'images/[name].[hash].[ext]'
+              name: "images/[name].[hash].[ext]"
             }
           }
         }
       ]
     },
     plugins
-  }
-
-}
+  };
+};
