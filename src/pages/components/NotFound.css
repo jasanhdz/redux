@@ -1,0 +1,54 @@
+.Container {
+  display: flex;
+  height: calc(100vh - 60px);
+  width: 100%;
+  background: url("../../../images/stars.svg"), #1b1b25;
+  justify-content: center;
+  align-items: center;
+  /* flex-wrap: wrap; */
+}
+
+.NotFound__description {
+  color: white;
+  width: 700px;
+  padding: 10px 15px;
+}
+
+.NotFound__description h1 {
+  text-shadow: 0.1em 0.1em #333;
+}
+
+.NotFound__description > p {
+  font-size: 1.5em;
+  color: #c9c9c9;
+}
+
+@media screen and (max-width: 1050px) {
+  .Container img {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .Container {
+    flex-wrap: wrap;
+    text-align: center;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+  }
+  .NotFound__description {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .Container img {
+    width: 300px;
+  }
+  .NotFound__description h1 {
+    font-size: 2em;
+  }
+  .NotFound__description p {
+    font-size: 1.1em;
+  }
+}
