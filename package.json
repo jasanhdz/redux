@@ -11,8 +11,11 @@
     "build": "webpack --config ./webpack.dev.config.js",
     "build:local": "webpack --env.NODE_ENV=local",
     "build:prod": "webpack --env.NODE_ENV=production",
+    "build:server": "webpack --env.NODE_ENV=local --config ./webpack.server.config.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "server": "nodemon index.js",
+    "watch": "@babel/node server.js --presets @babel/preset-env, @babel/preset-react"
   },
   "keywords": [
     "react"
@@ -20,7 +23,8 @@
   "author": "Jasan Hernández <jasan814@gmail.com> (https://twitter.com/jasan_azael)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "7.4.4",
     "@babel/plugin-proposal-pipeline-operator": "7.3.2",
@@ -28,13 +32,16 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "7.0.0",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-polyfill": "6.26.0",
+    "babel-watch": "^7.0.0",
     "clean-webpack-plugin": "0.1.17",
     "css-loader": "^2.1.1",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "^3.0.1",
+    "nodemon": "^2.0.2",
     "redux-devtools-extension": "^2.13.8",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
@@ -43,8 +50,13 @@
     "webpack-dev-server": "3.5.1"
   },
   "dependencies": {
+    "@babel/register": "^7.8.6",
     "@emotion/core": "^10.0.15",
+    "@std/esm": "^0.26.0",
+    "asset-require-hook": "^1.2.0",
+    "express": "^4.17.1",
     "gh-pages": "^2.0.1",
+    "ignore-styles": "^5.0.1",
     "immutable": "^4.0.0-rc.12",
     "normalizr": "^3.4.0",
     "prop-types": "^15.7.2",

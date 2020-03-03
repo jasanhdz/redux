@@ -251,29 +251,7 @@ body {
   display: flex;
   padding: 0 10px;
   cursor: pointer;
-}.Page {
-  color: white;
-  text-align: center;
-}
-.Page a {
-  color: lightblue;
-}
-
-.SadFace {
-  font-size: 50px;
-}
-
-.Page .Button {
-  background: white;
-  padding: 8px 15px;
-  border-radius: 10px;
-  border: none;
-  color: #171d30;
-  font-size: 16px;
-  margin: 10px;
-  margin-bottom: 10px;
-}
-.Header {
+}.Header {
   background: white;
   display: flex;
   align-items: center;
@@ -325,7 +303,7 @@ body {
   display: flex;
   height: calc(100vh - 60px);
   width: 100%;
-  background: url(C:\Users\JASAN\Documents\Cursos\redux\dist/images/stars.0abcdfcd1e323649a0338a204fe8b853.svg), #1b1b25;
+  background: url(/images/stars.0abcdfcd1e323649a0338a204fe8b853.svg), #1b1b25;
   justify-content: center;
   align-items: center;
   /* flex-wrap: wrap; */
