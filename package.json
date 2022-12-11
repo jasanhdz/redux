@@ -54,7 +54,7 @@
     "@emotion/core": "^10.0.15",
     "@std/esm": "^0.26.0",
     "asset-require-hook": "^1.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "gh-pages": "^2.0.1",
     "ignore-styles": "^5.0.1",
     "immutable": "^4.0.0-rc.12",
